@@ -2,8 +2,11 @@ package leetcodecn.link;
 
 public class P2AddTwoNumbers {
     public static void main(String[] args) {
-      System.out.print("vs");
+      System.out.println("vs");
+      System.out.println("nbvuiern9uio niuvde");
     }
+
+
 
 
     static class ListNode {
