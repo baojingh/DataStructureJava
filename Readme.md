@@ -1,0 +1,90 @@
+
+
+# 解题方法
+
+
+
+# 题型
+## 滑动窗口
+## 链表
+## 二分查找
+## 二叉树
+## 栈
+## 堆
+## 数组
+## 哈希表
+## 排序
+## 动态规划
+
+
+
+
+
+
+
+链表要用新链表接收才可以操作，不要操作原始链表
+自己 new 的链表需要二次操作的时候也需要用新链表来接收它
+方法输入的参数要做合法性判断后再让算法处理它
+利用 Java 已经存在的数据结构处理问题可能会快点
+动态规划问题的核心是找状态转移方程
+可以多使用 语言自带的 API
+字符转整数：int num = 'a' - 0;
+递归 + 回溯
+多指针法 + 滑动窗口
+位运算：左移相当于乘 2，右移相当于除 2
+与次数、频率有关的使用 Hash 表
+字符串相关问题可以考虑 Hash 表
+善于利用逻辑表达式&&,||,? :来判断
+字符串逆序String s2 = new StringBuffer(s1).reverse().toString();
+Set 集合存储不重复的元素
+Hash 适用于与查找有关的东西
+Arrays.sort()解决排序问题。JDK >= 8
+String str = s.trim();可以去除字符串首尾的空格，不包含中间的空格。
+int最大值：2147483647，最小值：-2147483648
+刷了几道题发现：能用循环暴力解决的都有更简单的方法，暴力法只适合数据小的测试，对于大数据就严重超时，甚至溢出！
+int数组转List：List<Integer> list = Arrays.stream(数组名).boxed().collect(Collectors.toList());
+利用栈的先进后出的特点可以解决类似括号匹配的问题
+双指针、三指针甚至是四指针等多指针快速在数据元素间移动，比多重循环块快很多
+字符转整数：‘2’ - ‘0’得到整数2
+递归、回溯比循环要好
+算法是数学游戏，要找规律
+可以允许的条件下，多重循环自然是简单的选择
+
+
+
+
+
+
+
+
+二分查找
+一个已排序的数组包含N个元素，查找某个元素是否在列表中，最多需要查找logN
+此处基于数组做二分查找，就是使用了顺序表基于下标的随机访问
+时间复杂度：log(N)
+模版
+int left = 0;
+int right = nums.length;
+int mid = 0;
+while(left <= right){
+mid = left + (right - left) / 2;
+if (nums[mid] > target){
+right = mid - 1;
+} else if(nums[mid] > target) {
+left = mid + 1;
+} else if((nums[mid] == target) {
+retun mid
+}
+}
+return -1;
+应用范围：一个数的平方根；一个数是否是整数的平方根；数组中符合条件的下标范围
+
+
+
+
+# link
+https://leetcode.cn/progress/
+https://blog.csdn.net/kamisama_zhu/article/details/149021278
+
+
+
+
