@@ -38,6 +38,7 @@
 初始化 left = 0，right = 0，最大长度 maxLen = 0。
 用一个 HashMap<Character, Integer> 来存储字符和它的最新索引。
 遍历字符串：
+如果当前字符未在窗口中出现过，将字符及索引存入map
 如果当前字符已经在窗口中出现过（即在 map 中且索引 >= left），则更新 left 到重复字符的下一个位置。
 更新当前字符在 map 中的位置（存储 right+1 或 right 都可以，看实现习惯）。
 计算当前窗口长度 right - left + 1，并更新 maxLen。
@@ -82,8 +83,29 @@ right = 5 (字符 'w')
 0 1 2 3 4 5
 p w w k e w
 
+0 1 2 3
+a b b a
+
+0 1 2
+b b a
 */
 
+
+/**
+ * 哈希表记录的是字符上一次出现的位置 + 1（即从该位置后开始不重复）
+ * 那么 map.get(c) 直接就是新的左边界候选值
+ * 我们只需要确保 map.get(c) 不比当前 left 小
+ *
+ * 当 map.get(c) >= left：字符在窗口内，出现重复，需要移动左指针
+ * 当 map.get(c) < left：字符在窗口外，虽然是重复字符，但对当前窗口无影响
+ *
+ * 总之：如果没有left <= ele，abb这种情况下，left指针就会跳到第一个a，这个情况，就会导致窗口长度错误变长。
+ * 目的就是不要让left在向左回退
+ *
+ *       if (ele != null && left <= ele) {
+ *         left = ele + 1;
+ *       }
+ */
 
 package leetcodecn.window;
 
@@ -91,28 +113,46 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class P3LongestSubstringWithoutRepeatingCharacters {
-
   public static void main(String[] args) {
-    
+//    String origin = "pwwkew";
+//    String origin = "abc";
+//    String origin = "aaa";
+//    String origin = "";
+//    String origin = "ababcda";
+//    String origin = "abba";
+    String origin = "bba";
+    int res = lengthOfLongestSubstring(origin);
+    System.out.println(res);
   }
-
-  public int lengthOfLongestSubstring(String s) { 
+  public static int lengthOfLongestSubstring(String s) {
     Map<Character, Integer> map  = new HashMap<Character, Integer>();
-
     int left = 0;
     int maxLen = 0;
-    for(int right =0; right < s.length(); right++) {
-      Integer ele = map.get(s[right]);
-      
-
-
-
+    for (int right = 0; right < s.length(); right++) {
+      Character c = s.charAt(right);
+      Integer ele = map.get(c);
+      /**
+       * 哈希表记录的是字符上一次出现的位置 + 1（即从该位置后开始不重复）
+       * 那么 map.get(c) 直接就是新的左边界候选值
+       * 我们只需要确保 map.get(c) 不比当前 left 小
+       *
+       * 当 map.get(c) >= left：字符在窗口内，出现重复，需要移动左指针
+       * 当 map.get(c) < left：字符在窗口外，虽然是重复字符，但对当前窗口无影响
+       *
+       * 总之：如果没有left <= ele，abb这种情况下，left指针就会跳到第一个a，这个情况，就会导致窗口长度错误变长。
+       * 目的就是不要让left在向左回退
+       *
+       *       if (ele != null && left <= ele) {
+       *         left = ele + 1;
+       *       }
+       */
+      if (ele != null && left <= ele) {
+        left = ele + 1;
+      }
+      map.put(c, right);
+      maxLen = Math.max(maxLen, right - left + 1);
     }
-
-
-
-
-    return 0;
+    return maxLen;
   }
 
 
