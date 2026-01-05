@@ -119,8 +119,8 @@ public class P3LongestSubstringWithoutRepeatingCharacters {
 //    String origin = "aaa";
 //    String origin = "";
 //    String origin = "ababcda";
-//    String origin = "abba";
-    String origin = "bba";
+   String origin = "abba";
+    // String origin = "bba";
     int res = lengthOfLongestSubstring(origin);
     System.out.println(res);
   }
@@ -139,14 +139,14 @@ public class P3LongestSubstringWithoutRepeatingCharacters {
        * 当 map.get(c) >= left：字符在窗口内，出现重复，需要移动左指针
        * 当 map.get(c) < left：字符在窗口外，虽然是重复字符，但对当前窗口无影响
        *
-       * 总之：如果没有left <= ele，abb这种情况下，left指针就会跳到第一个a，这个情况，就会导致窗口长度错误变长。
-       * 目的就是不要让left在向左回退
+       * 总之：如果没有left <= ele，abba这种情况下，left指针就会跳到第一个a，这个情况，就会导致窗口长度错误变长。
+       * 目的就是不要让left在向左回退，而且还需要保证right在右侧，left在左侧。如果还想不通，就调试。
        *
        *       if (ele != null && left <= ele) {
        *         left = ele + 1;
        *       }
        */
-      if (ele != null && left <= ele) {
+      if (ele != null ) {
         left = ele + 1;
       }
       map.put(c, right);
