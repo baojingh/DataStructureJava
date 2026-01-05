@@ -146,7 +146,7 @@ public class P3LongestSubstringWithoutRepeatingCharacters {
        *         left = ele + 1;
        *       }
        */
-      if (ele != null ) {
+      if (ele != null && left <= ele ) {
         left = ele + 1;
       }
       map.put(c, right);
