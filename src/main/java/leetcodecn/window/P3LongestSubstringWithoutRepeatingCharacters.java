@@ -107,21 +107,69 @@ package leetcodecn.window;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 示例 1:
+ *
+ * 输入: s = "abcabcbb"
+ * 输出: 3
+ * 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。注意 "bca" 和 "cab" 也是正确答案。
+ * 示例 2:
+ *
+ * 输入: s = "bbbbb"
+ * 输出: 1
+ * 解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+ * 示例 3:
+ *
+ * 输入: s = "pwwkew"
+ * 输出: 3
+ * 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+ *      请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+ */
+
 public class P3LongestSubstringWithoutRepeatingCharacters {
 
     public static void main(String[] args) {
+//    String origin = "abcabcbb";
 //    String origin = "pwwkew";
 //    String origin = "abc";
-//    String origin = "aaa";
+    String origin = "aaa";
 //    String origin = "";
 //    String origin = "ababcda";
-        String origin = "abba";
+//        String origin = "abba";
         // String origin = "bba";
         int res = lengthOfLongestSubstring(origin);
         System.out.println(res);
     }
 
-    public static int lengthOfLongestSubstring(String s) {
+
+    /**
+     * https://leetcode.cn/problems/longest-substring-without-repeating-characters/solutions/1959540/xia-biao-zong-suan-cuo-qing-kan-zhe-by-e-iaks/
+     *
+     * @param S
+     * @return
+     */
+    public static int lengthOfLongestSubstring(String S) {
+        char[] s = S.toCharArray();
+        int[] cnt = new int[128];
+
+        int left = 0;
+        int res = 0;
+        int right = 0;
+        for (right = 0; right < S.length(); right++) {
+            char c = S.charAt(right);
+            cnt[c]++;
+            while (cnt[c] > 1) {
+                cnt[s[left]]--;
+                left = left + 1;
+            }
+            res = Math.max(res, right - left + 1);
+        }
+        return res;
+    }
+
+
+
+    public static int lengthOfLongestSubstringV1(String s) {
         Map<Character, Integer> map = new HashMap<Character, Integer>();
         int left = 0;
         int maxLen = 0;
